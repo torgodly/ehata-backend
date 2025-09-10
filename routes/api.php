@@ -16,14 +16,43 @@ Route::get('/posts/featured', function () {
         ->where('status', PostStatus::Published)
         ->orderBy('featured_at', 'desc')
         ->get();
+    //append images to each post from media collection
+   $posts = $posts->each(function ($post) {
+        $post->images = $post->getMedia('images')->map(fn($media) => $media->getUrl());
+    });
 
+    //unset media
+    $posts->each(function ($post) {
+        unset($post->media);
+    });
     return response()->json($posts);
 });
 
 //all published posts
 Route::get('/posts', function () {
     $posts = Post::where('status', PostStatus::Published)
+        ->with('tags')
         ->orderBy('created_at', 'desc')
         ->get();
+    $posts = $posts->each(function ($post) {
+        $post->images = $post->getMedia('images')->map(fn($media) => $media->getUrl());
+    });
+
+    //unset media
+    $posts->each(function ($post) {
+        unset($post->media);
+    });
     return response()->json($posts);
+});
+
+
+//show single post by slug
+Route::get('/posts/{post:slug}', function (Post $post) {
+    if ($post->status !== PostStatus::Published) {
+        return response()->json(['message' => 'Post not found'], 404);
+    }
+    $post->load('tags');
+    $post->images = $post->getMedia('images')->map(fn($media) => $media->getUrl());
+    unset($post->media);
+    return response()->json($post);
 });
