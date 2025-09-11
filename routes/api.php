@@ -56,3 +56,15 @@ Route::get('/posts/{post:slug}', function (Post $post) {
     unset($post->media);
     return response()->json($post);
 });
+
+//subscribe to newsletter
+Route::post('/subscribe', function (Request $request) {
+    $request->validate([
+        'email' => 'required|email|unique:news_letters,email',
+    ]);
+    $newsletter = \App\Models\NewsLetter::create([
+        'email' => $request->email,
+        'subscribed' => true,
+    ]);
+    return response()->json(['message' => 'Subscribed successfully', 'data' => $newsletter]);
+});
