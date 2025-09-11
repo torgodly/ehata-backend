@@ -169,7 +169,7 @@
             <tr>
                 <td class="header" style="background-color:#000000; padding:20px 30px; text-align:center;">
                     <a href="https://ehaata.com" target="_blank">
-                        <img src="https://ehaata.ly/Logo-dark.svg" alt="EHATA Logo" width="150"
+                        <img src="{{asset('images/Logo-dark.png')}}" alt="EHATA Logo" width="150"
                              style="width:150px; max-width:100%; height:auto; display:block; margin:0 auto;"/>
                     </a>
                 </td>
