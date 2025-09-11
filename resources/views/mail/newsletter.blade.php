@@ -248,7 +248,7 @@
                             <x-tabler-brand-linkedin style="vertical-align:middle;" width="20" height="20"/>
                         </a>
                     </p>
-                    <p>Copyright Ehata &copy; 2023 All rights reserved</p>
+                    <p>Copyright Ehata &copy; {{now()->year}} All rights reserved</p>
                     <p style="margin-top:20px;">
                         <a href="https://ehaata.com/docs/Privacy_Policy.pdf" target="_blank"
                            style="color:#ffffff; text-decoration:underline;">Privacy Policy</a> |
